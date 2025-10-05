@@ -24,7 +24,7 @@ const addProducts = async(req, res)=>{
 }
 
 //function to show all products
-const getProducts = async(req, res)=>{
+const getAllProducts = async(req, res)=>{
 
     // --------------------------made to save 20 dummy products to database using fetch--------------
 
@@ -48,12 +48,19 @@ const getProducts = async(req, res)=>{
         // await prod.save()
         // })
         // )
+        try {
+            const response = await Product.find({})
+            res.json(response)
+            
+        } catch (error) {
+            res.json(error.message)
+        }
         
         
 }
 
 
 export {
-    getProducts,
+    getAllProducts,
     addProducts
 }

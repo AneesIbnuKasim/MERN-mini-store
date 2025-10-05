@@ -1,9 +1,9 @@
 import express from 'express'
-import {getProducts, addProducts} from '../controller/productController.js'
+import {getAllProducts, addProducts} from '../controller/productController.js'
 
 const userRouter = express()
 
-userRouter.get('/products',getProducts)
+userRouter.get('/products',getAllProducts)
 userRouter.post('/products',addProducts)
 
 export default userRouter
