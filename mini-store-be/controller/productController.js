@@ -17,8 +17,7 @@ const addProducts = async(req, res)=>{
     await product.save()
     res.json({message:'Product Uploaded Successfully'})
    } catch (error) {
-    console.log(error.message);
-    
+    res.json(error.message);
    }
 
 }
@@ -49,14 +48,42 @@ const getAllProducts = async(req, res)=>{
         // })
         // )
         try {
-            const response = await Product.find({})
-            res.json(response)
+            // destructure query params from req.query
+            const {category, minPrice, maxPrice, rating, search} = req.query
+            console.log('price',typeof minPrice);
+            
+
+            //empty filter object
+            const filter = {}
+
+            //filter logic
+            if(category) filter.category = category
+            if(minPrice||maxPrice) {
+                if(minPrice&&maxPrice) {
+                filter.price = {$gte:Number(minPrice),$lte:Number(maxPrice)}
+            }
+                else if(minPrice) filter.price = {$gte:Number(minPrice)}
+                else if(maxPrice) filter.price ={$lte:Number(maxPrice)}
+            }
+            
+            if(rating) filter.rating = {$lte:Number(rating)}
+            console.log('filter',filter);
+
+            // search logic
+            if(search) filter.title = {$regex:search,$options:'i'}
+
+            //db query with all combined filter
+            const data = await Product.find(filter)
+            console.log(data);
+            
+            
+
+            
+            res.json(data)
             
         } catch (error) {
             res.json(error.message)
         }
-        
-        
 }
 
 
