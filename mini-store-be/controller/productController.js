@@ -49,7 +49,7 @@ const getAllProducts = async(req, res)=>{
         // )
         try {
             // destructure query params from req.query
-            const {category, minPrice, maxPrice, rating, search} = req.query
+            const {category, minPrice, maxPrice, rating, search, sort, page, limit} = req.query
             console.log('price',typeof minPrice);
             
 
@@ -72,13 +72,20 @@ const getAllProducts = async(req, res)=>{
             // search logic
             if(search) filter.title = {$regex:search,$options:'i'}
 
-            //db query with all combined filter
-            const data = await Product.find(filter)
-            console.log(data);
-            
-            
+            //sort logic
+            const sortObj = {}
+            if(sort) {
+                sort.startsWith('-') ? sortObj[sort.slice(1)] = -1 : sortObj[sort] = 1
+            }
 
-            
+            //handle pagination
+            const currentPage = page || 1
+            const productPerPage = limit || 6
+            const skipValue = (currentPage-1)*productPerPage
+
+            //db query with all combined filter and sort
+            const data = await Product.find(filter).skip(skipValue).limit(productPerPage).sort(sortObj)
+
             res.json(data)
             
         } catch (error) {
