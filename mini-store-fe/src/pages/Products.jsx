@@ -1,11 +1,14 @@
 import React from 'react'
 import ProductCard from '../components/ProductCard'
+import SideBar from '../components/SideBar'
 
 function Products() {
   return (
     <>
-      <ProductCard/>
-
+      <div className='flex flex-row w-full'>
+        <SideBar/>
+        <ProductCard/>
+      </div>
     </>
   )
 }

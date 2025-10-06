@@ -1,23 +1,20 @@
 import { createContext, useContext, useReducer } from "react";
-
-
-const ProductContext = createContext()
+import productReducer from "../reducer/productReducer";
 
 const initialState = {
         category : [],
         minPrice : 0,
         maxPrice : 100,
         search : '',
-        page : '',
-        limit: ''
+        page : 1,
+        limit: 6,  
+        products: [], 
+        loading: false,
+        error: null
+
     }
-    const productReducer = (state, action)=>{
-        switch(action.type) {
-            case 'CATEGORY_FILTER' : return {...state, category:[...state.category, action.payload]}
-            
-            default : return state
-        }
-    }
+
+const ProductContext = createContext()
 
 const ProductProvider = ({children})=>{
 
