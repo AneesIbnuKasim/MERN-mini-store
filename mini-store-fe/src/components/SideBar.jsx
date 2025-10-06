@@ -2,7 +2,7 @@ import React from 'react'
 
 function SideBar() {
   return (
-    <div className='w-[60%]'>
+    <div className='hidden sm:block  '>
       sidebar
     </div>
   )
