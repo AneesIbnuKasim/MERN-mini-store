@@ -1,16 +1,23 @@
-import { useState } from 'react'
 
-import './App.css'
 import Navbar from './components/Navbar'
 import Products from './pages/Products'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
 function App() {
 
 
   return (
     <>
+    <ErrorBoundary>
+      
     <Navbar/>
-    <Products/>
+    <Routes>
+      <Route path='/products' element={<Products/>} />
+    </Routes>
+
+    </ErrorBoundary>
+    
     </>
   )
 }
