@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import userRouter from './routes/productRoutes.js';
 import connectDB from './config/dbConfig.js';
 import path from 'path';
+import cors from 'cors';
 
 //env config to import sensitive keys
 dotenv.config();
@@ -10,6 +11,9 @@ dotenv.config();
 const app = express()
 
 const PORT = process.env.PORT || 3001
+
+//cors for cross platform connection
+app.use(cors());
 
 app.use(express.json());
 

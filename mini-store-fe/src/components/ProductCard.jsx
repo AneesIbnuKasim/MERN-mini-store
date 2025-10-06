@@ -1,28 +1,26 @@
 import React from 'react'
+import useProduct from '../hooks/useProduct';
 
 function ProductCard() {
+  const {state} = useProduct()
+  const {products} = state
+  
   
   return (
     <>
-      <div className='bg-black h-[80vh]'>
+      <div className=''>
         <div className='grid gap-5  grid-cols-3'>
-            
-            <div className='bg-red-300'>
-                <img className='h-[30%] w-full' src="/trolley.png" alt="" />
-                <h6>Product1</h6>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt esse, quaerat doloremque laboriosam tempora debitis vero nam sint nobis veritatis, quisq</p>
+            { 
+              products.map(product=>(
+                <div className='border-1 h-[60vh]'>
+                <img className='h-60 w-full' src={product.images[0]} alt="product img" />
+                <p className='text-gray-500'>{product.brand}</p>
+                <h6>{product.title}</h6>
+                <p>{product.description}</p>
+                <h4>price</h4>
             </div>
-            <div className='bg-red-300'>
-                <img className='h-[30%] w-full' src="/trolley.png" alt="" />
-                <h6>Product1</h6>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt esse, quaerat doloremque laboriosam tempora debitis vero nam sint nobis veritatis, </p>
-            </div>
-            <div className='bg-red-300'>
-                <img className='h-[30%] w-full' src="/trolley.png" alt="" />
-                <h6>Product1</h6>
-                <p className={'text-sm'}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt esse, quaerat </p>
-            </div>
-            
+              ))
+            }
             
         </div>
       </div>
