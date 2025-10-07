@@ -8,7 +8,7 @@ const initialState = {
         maxPrice : 100,
         search : '',
         page : 1,
-        limit: 2,  
+        limit: 6,  
         products: [], 
         loading: false,
         totalCount: 0,
@@ -26,13 +26,9 @@ const ProductProvider = ({children})=>{
     useEffect(()=>{
         const fetchProducts = async()=>{
             try {
-                console.log('fr page:',page);
-                
                 const response = await axios.get(`http://localhost:3000/products?page=${page}`)
                 dispatch({type:'SET_PRODUCTS',payload:response.data.products})
                 dispatch({type:'SET_TOTAL_COUNT',payload:response.data.totalCount})
-                console.log('count',response);
-                
                 
             } catch (error) {
                 console.error(error.message)
@@ -41,9 +37,7 @@ const ProductProvider = ({children})=>{
         fetchProducts()
     },[page])
     useEffect(()=>{
-        console.log('product:',state.products);
-        console.log('page:',state.page);
-        
+        console.log('state:',state);
     },[state])
 
 
