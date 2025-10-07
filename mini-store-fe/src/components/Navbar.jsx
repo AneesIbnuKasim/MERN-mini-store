@@ -1,6 +1,10 @@
 import React from 'react'
+import useProduct from '../hooks/useProduct'
 
 function Navbar() {
+
+  const { dispatch } = useProduct()
+
   return (
     <>
     <div className=' flex items-center justify-between  sm:pr-1 pl-3 pr-2 md:pr-[30vw] py-3   bg-gray-800'>
@@ -12,7 +16,7 @@ function Navbar() {
         </div>
         </div>
         <div className='relative'>
-          <input placeholder='search...' className='relative border-1 h-10 w-[45vw] md:w-[30vw] bg-white rounded-md outline-0 py-1 px-2 border-red-100'/>
+          <input onChange={(e)=>handleSearch(e)} placeholder='search...' className='relative border-1 h-10 w-[45vw] md:w-[30vw] bg-white rounded-md outline-0 py-1 px-2 border-red-100'/>
           <button className='absolute right-0 top-0 rounded-r-lg border-l   p-0.5 bg-stone-300'><img src="/search.png" alt="search-img" /></button>
         </div>
     </div>

@@ -5,7 +5,6 @@ import { FcNext } from "react-icons/fc"
 
 function Pagination() {
         const {state, dispatch, products, totalCount, page, limit} = useProduct()
-        console.log('tottal',totalCount);
         
         const totalPages = Math.ceil(totalCount/limit)
         

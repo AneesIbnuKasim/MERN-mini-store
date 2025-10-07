@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import Products from './pages/Products'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
+import AddProduct from './pages/AddProduct'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
     <Navbar/>
     <Routes>
       <Route path='/products' element={<Products/>} />
+      <Route path='/add-product' element={<AddProduct />} />
     </Routes>
 
     </ErrorBoundary>

@@ -6,10 +6,10 @@ import ProductProvider from './contextApi/ProductProvider.jsx'
 import { BrowserRouter } from 'react-router-dom'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ProductProvider>
       <BrowserRouter>
+    <ProductProvider>
     <App />
-      </BrowserRouter>
     </ProductProvider>
+      </BrowserRouter>
   </StrictMode>,
 )

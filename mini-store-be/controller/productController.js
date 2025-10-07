@@ -51,16 +51,12 @@ const getAllProducts = async(req, res)=>{
         try {
             // destructure query params from req.query
             const {category, minPrice, maxPrice, rating, search, sort, page, limit} = req.query
-            console.log('page:',page);
-            
 
             //empty filter object
             const filter = {}
 
             //filter logic
             if(category) filter.category = category.split(',')      //split to make string split , and return array 
-            console.log('category:',typeof filter.category);
-            console.log('category:',filter.category);
             
             if(minPrice||maxPrice) {
                 if(minPrice&&maxPrice) {

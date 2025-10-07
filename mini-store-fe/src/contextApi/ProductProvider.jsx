@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import productReducer from "../reducer/productReducer";
 import axios from 'axios'
+import { useLocation, useNavigate } from "react-router-dom";
 
 const initialState = {
         category : [],
@@ -21,6 +22,8 @@ const ProductProvider = ({children})=>{
 
     const [state, dispatch] = useReducer(productReducer, initialState)
     const [ allCategories, setAllCategories] = useState([])
+    const navigate = useNavigate()
+    const location = useLocation()
 
     //Destructure state object to pass on provider value
      const   { category, minPrice, maxPrice, search, page, limit, products, sort, loading, totalCount } = state
@@ -32,20 +35,18 @@ const ProductProvider = ({children})=>{
             category, minPrice, maxPrice, search, page, limit, sort
         }
         const queryString = new URLSearchParams(Object.fromEntries(Object.entries(params).filter(([Key,value])=>value!==undefined&&value!==''&&value.length!==0))).toString()
-        console.log('srch p',queryString);
-        
 
         const fetchProducts = async()=>{
             try {
                 const response = await axios.get(`http://localhost:3000/products?${queryString}`)
                 dispatch({type:'SET_PRODUCTS',payload:response.data.products})
                 dispatch({type:'SET_TOTAL_COUNT',payload:response.data.totalCount})
-                console.log('ttttttt',response.data.totalCount);
                 
                 
                 //set all categories to dynamically show category filter options
                 setAllCategories(response.data.allCategories)
-                window.history.pushState(null, '', `?${queryString}`);
+               
+               if (location.pathname=='/products') {navigate(`?${queryString}`,{replace:false})}
                 
             } catch (error) {
                 console.error(error.message)
