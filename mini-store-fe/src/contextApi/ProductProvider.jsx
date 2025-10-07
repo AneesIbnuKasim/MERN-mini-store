@@ -1,11 +1,11 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import productReducer from "../reducer/productReducer";
 import axios from 'axios'
 
 const initialState = {
         category : [],
-        minPrice : 0,
-        maxPrice : 100,
+        minPrice : '',
+        maxPrice : '',
         sort : '',
         search : '',
         page : 1,
@@ -20,23 +20,37 @@ const ProductContext = createContext()
 const ProductProvider = ({children})=>{
 
     const [state, dispatch] = useReducer(productReducer, initialState)
+    const [ allCategories, setAllCategories] = useState([])
 
     //Destructure state object to pass on provider value
-     const   { category, minPrice, maxPrice, search, page, limit, products, loading, totalCount } = state
+     const   { category, minPrice, maxPrice, search, page, limit, products, sort, loading, totalCount } = state
     //fetch products
     useEffect(()=>{
+
+        // ----------------------------create query string------------------------
+        const params = {
+            category, minPrice, maxPrice, search, page, limit, sort
+        }
+        const queryString = new URLSearchParams(Object.fromEntries(Object.entries(params).filter(([Key,value])=>value!==undefined||value!==''))).toString()
+        console.log(queryString);
+        
+
         const fetchProducts = async()=>{
             try {
-                const response = await axios.get(`http://localhost:3000/products?page=${page}`)
+                const response = await axios.get(`http://localhost:3000/products?${queryString}`)
                 dispatch({type:'SET_PRODUCTS',payload:response.data.products})
                 dispatch({type:'SET_TOTAL_COUNT',payload:response.data.totalCount})
+                
+                //set all categories to dynamically show category filter options
+                setAllCategories(response.data.allCategories)
+                window.history.pushState(null, '', `?${queryString}`);
                 
             } catch (error) {
                 console.error(error.message)
             }
         }
         fetchProducts()
-    },[page])
+    },[category, minPrice, maxPrice, search, page, limit, sort])
     useEffect(()=>{
         console.log('state:',state);
     },[state])
@@ -44,7 +58,7 @@ const ProductProvider = ({children})=>{
 
     return(
     <ProductContext.Provider value={{state, dispatch,
-        category, minPrice, maxPrice, search, page, limit, products, loading, totalCount
+        category, minPrice, maxPrice, search, page, limit, products, loading, totalCount, allCategories
     }}>
         {children}
     </ProductContext.Provider>)

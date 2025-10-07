@@ -14,6 +14,7 @@ export default function PriceRangeSlider() {
   const handlePriceFilter = ()=>{
     dispatch({type:'SET_FILTER',key:'minPrice', value:values[0]})
     dispatch({type:'SET_FILTER',key:'maxPrice', value:values[1]})
+    dispatch({type:'SET_PAGE',payload:1})
   }
 
   return (

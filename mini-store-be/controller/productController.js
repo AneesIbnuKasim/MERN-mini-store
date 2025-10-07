@@ -58,7 +58,10 @@ const getAllProducts = async(req, res)=>{
             const filter = {}
 
             //filter logic
-            if(category) filter.category = category
+            if(category) filter.category = category.split(',')      //split to make string split , and return array 
+            console.log('category:',typeof filter.category);
+            console.log('category:',filter.category);
+            
             if(minPrice||maxPrice) {
                 if(minPrice&&maxPrice) {
                 filter.price = {$gte:Number(minPrice),$lte:Number(maxPrice)}
@@ -66,9 +69,7 @@ const getAllProducts = async(req, res)=>{
                 else if(minPrice) filter.price = {$gte:Number(minPrice)}
                 else if(maxPrice) filter.price ={$lte:Number(maxPrice)}
             }
-            
             if(rating) filter.rating = {$lte:Number(rating)}
-            console.log('filter',filter);
 
             // search logic
             if(search) filter.title = {$regex:search,$options:'i'}
@@ -85,11 +86,12 @@ const getAllProducts = async(req, res)=>{
             const skipValue = (currentPage-1)*productPerPage
 
             //db query promise.all with all combined filter and sort, total count
-            const [data, totalCount] = 
-             await Promise.all([Product.find(filter).skip(skipValue).limit(productPerPage).sort(sortObj),
-                        Product.countDocuments()])
+            const [data, totalCount, categories] = 
+             await Promise.all([Product.find(filter)
+                .skip(skipValue).limit(productPerPage).sort(sortObj),
+                        Product.countDocuments(), Product.distinct('category')])
 
-                        res.json({totalCount:totalCount,products:data})
+                        res.json({totalCount:totalCount,products:data, allCategories:categories})
             
         } catch (error) {
             res.json(error.message)

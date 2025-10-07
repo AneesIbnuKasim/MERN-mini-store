@@ -5,21 +5,17 @@ import PriceRangeSlider from './PriceRangeSlider';
 
 function SideBar() {
 
-    const { products, dispatch, category, minPrice, maxPrice, state } = useProduct()
-    const uniqueCategory = useMemo(()=>{
-        const uniqueItem = new Set()
-        products.map(item=>uniqueItem.add(item.category))
-        const uniqueArray = [...uniqueItem]
-        return uniqueArray
-    },[products])
+    const { products, dispatch, category, minPrice, maxPrice, state, allCategories } = useProduct()
     // ---------------------------------Handle all filters--------------------------
     const handleFilter = (e)=>{
         const name = e.target.name
        dispatch({type:'SET_FILTER' , key:name, value:e.target.value})
+       dispatch({type:'SET_PAGE',payload:1})
     }
     // ---------------------------------Handle all sorting options--------------------------
     const handleSort = (e)=>{
         dispatch({type:'SET_SORT',payload:e.target.value})
+        dispatch({type:'SET_PAGE',payload:1})
     }
 
   return (
@@ -32,9 +28,9 @@ function SideBar() {
             {/* ------------------------Filter---------------------- */}
         <div >
             <h4 className='font-text-lg font-semibold text-gray-800 mb-4'>Category</h4>
-            <div className='flex flex-col-2 gap-5'>
+            <div className='flex flex-col gap-5'>
                 {
-                uniqueCategory.map((category,index)=>(
+                allCategories.map((category,index)=>(
                     <label key={index}>
   <input  onClick={(e)=>handleFilter(e)} type="checkbox" name='category' value={category} /> {category}
 </label>
@@ -49,7 +45,7 @@ function SideBar() {
                 <option value="">Relevant</option>
                 <option value="price">Price: Low-High</option>
                 <option value="-price">Price: High-Low</option>
-                <option value="name">Name</option>
+                <option value="title">Name</option>
             </select>
 
         </div>
