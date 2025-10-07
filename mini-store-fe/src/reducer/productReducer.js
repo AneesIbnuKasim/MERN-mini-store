@@ -7,9 +7,8 @@ const productReducer = (state, action)=>{
             case 'SET_FILTER' : return (action.key==='category') ? {...state, category:[...state.category,action.value]} : {...state, [action.key]:action.value}
             case 'SET_LOADING'    : return {...state,loading:true}
             case 'SET_TOTAL_COUNT'    : return {...state,totalCount:action.payload}
-            case 'SET_PAGE' : return {...state, page:action.payload
-                
-            }
+            case 'SET_PAGE' : return {...state, page:action.payload}
+            case 'SET_SORT' : return {...state, sort:action.payload}
 
             default : return state
         }

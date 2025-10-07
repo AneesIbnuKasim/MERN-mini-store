@@ -1,6 +1,7 @@
 import express from 'express'
 import Product from '../Model/productModel.js'
 
+
 // add products to mongodb
 const addProducts = async(req, res)=>{
     const { title,description,category,price,rating,brand} = req.body

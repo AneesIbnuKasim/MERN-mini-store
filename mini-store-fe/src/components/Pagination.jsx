@@ -34,10 +34,10 @@ function Pagination() {
                      </div>
             </button>
             {pageNumbers.map((num,index)=>(
-                <>
-                <button key={index} onClick={()=>handleButton(num)} className={`p-4 border-r border-gray-300 ${num===page ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}>{num}</button>
+                <React.Fragment key={index}>
+                <button onClick={()=>handleButton(num)} className={`p-4 border-r border-gray-300 ${num===page ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}>{num}</button>
                 {index < pageNumbers.length - 1&& pageNumbers[index + 1] - num > 1  && (<button className={`p-4 border-r border-gray-300`}>...</button>)}
-                </>
+                </React.Fragment>
                 
             ))}
             

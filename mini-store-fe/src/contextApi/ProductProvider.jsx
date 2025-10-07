@@ -6,6 +6,7 @@ const initialState = {
         category : [],
         minPrice : 0,
         maxPrice : 100,
+        sort : '',
         search : '',
         page : 1,
         limit: 6,  
