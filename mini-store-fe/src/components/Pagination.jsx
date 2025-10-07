@@ -5,6 +5,8 @@ import { FcNext } from "react-icons/fc"
 
 function Pagination() {
         const {state, dispatch, products, totalCount, page, limit} = useProduct()
+        console.log('tottal',totalCount);
+        
         const totalPages = Math.ceil(totalCount/limit)
         
         const pageNumbers = useMemo(()=>{
@@ -15,7 +17,7 @@ function Pagination() {
         
         if(!pageNum.includes(totalPages)) pageNum.push(totalPages)
             return pageNum
-        })
+        },[totalCount,state])
     
 
             const handleButton = (pageAction)=>{
@@ -36,7 +38,7 @@ function Pagination() {
             {pageNumbers.map((num,index)=>(
                 <React.Fragment key={index}>
                 <button onClick={()=>handleButton(num)} className={`p-4 border-r border-gray-300 ${num===page ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}>{num}</button>
-                {index < pageNumbers.length - 1&& pageNumbers[index + 1] - num > 1  && (<button className={`p-4 border-r border-gray-300`}>...</button>)}
+                {index < pageNumbers.length - 1 && pageNumbers[index + 1] - num > 1  && (<button className={`p-4 border-r border-gray-300`}>...</button>)}
                 </React.Fragment>
                 
             ))}

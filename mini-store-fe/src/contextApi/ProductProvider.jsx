@@ -31,8 +31,8 @@ const ProductProvider = ({children})=>{
         const params = {
             category, minPrice, maxPrice, search, page, limit, sort
         }
-        const queryString = new URLSearchParams(Object.fromEntries(Object.entries(params).filter(([Key,value])=>value!==undefined||value!==''))).toString()
-        console.log(queryString);
+        const queryString = new URLSearchParams(Object.fromEntries(Object.entries(params).filter(([Key,value])=>value!==undefined&&value!==''&&value.length!==0))).toString()
+        console.log('srch p',queryString);
         
 
         const fetchProducts = async()=>{
@@ -40,6 +40,8 @@ const ProductProvider = ({children})=>{
                 const response = await axios.get(`http://localhost:3000/products?${queryString}`)
                 dispatch({type:'SET_PRODUCTS',payload:response.data.products})
                 dispatch({type:'SET_TOTAL_COUNT',payload:response.data.totalCount})
+                console.log('ttttttt',response.data.totalCount);
+                
                 
                 //set all categories to dynamically show category filter options
                 setAllCategories(response.data.allCategories)

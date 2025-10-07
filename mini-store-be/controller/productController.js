@@ -87,9 +87,9 @@ const getAllProducts = async(req, res)=>{
 
             //db query promise.all with all combined filter and sort, total count
             const [data, totalCount, categories] = 
-             await Promise.all([Product.find(filter)
-                .skip(skipValue).limit(productPerPage).sort(sortObj),
-                        Product.countDocuments(), Product.distinct('category')])
+             await Promise.all([Product.find(filter).skip(skipValue).limit(productPerPage).sort(sortObj),
+                Product.countDocuments(filter), 
+                Product.distinct('category')])
 
                         res.json({totalCount:totalCount,products:data, allCategories:categories})
             

@@ -4,6 +4,8 @@ import SideBar from '../components/SideBar'
 import Pagination from '../components/Pagination'
 
 function Products() {
+
+  
   return (
     <>
       <div></div>
