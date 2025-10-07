@@ -50,7 +50,7 @@ const getAllProducts = async(req, res)=>{
         try {
             // destructure query params from req.query
             const {category, minPrice, maxPrice, rating, search, sort, page, limit} = req.query
-            console.log('price',typeof minPrice);
+            console.log('page:',page);
             
 
             //empty filter object
@@ -83,10 +83,12 @@ const getAllProducts = async(req, res)=>{
             const productPerPage = limit || 6
             const skipValue = (currentPage-1)*productPerPage
 
-            //db query with all combined filter and sort
-            const data = await Product.find(filter).skip(skipValue).limit(productPerPage).sort(sortObj)
+            //db query promise.all with all combined filter and sort, total count
+            const [data, totalCount] = 
+             await Promise.all([Product.find(filter).skip(skipValue).limit(productPerPage).sort(sortObj),
+                        Product.countDocuments()])
 
-            res.json(data)
+                        res.json({totalCount:totalCount,products:data})
             
         } catch (error) {
             res.json(error.message)
