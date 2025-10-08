@@ -42,7 +42,6 @@ const ProductProvider = ({children})=>{
                 dispatch({type:'SET_PRODUCTS',payload:response.data.products})
                 dispatch({type:'SET_TOTAL_COUNT',payload:response.data.totalCount})
                 
-                
                 //set all categories to dynamically show category filter options
                 setAllCategories(response.data.allCategories)
                

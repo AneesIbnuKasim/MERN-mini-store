@@ -7,11 +7,19 @@ function Navbar() {
 
   const { dispatch, setSearch } = useProduct()
   const [suggestion, setSuggestion] = useState([])
+  const [showSuggestion, setShowSuggestion ] = useState(false)
   const [query, setQuery] = useState('')
   const base_url = import.meta.env.BACKEND_BASE_URL || 'http://localhost:3000'
+  const wrapperRef = useRef()
+
+  const handleSuggestion = (e)=>{
+    setQuery(e.target.value)
+  }
 
   const handleSearch = (e)=>{
-    setQuery(e.target.value)
+      console.log('search',query)
+      dispatch({type:'SET_FILTER', key:'search', value:query})
+      dispatch({type:'SET_PAGE', payload:1})
   }
   
   const debouncedSuggestion  = useDebounce(query,500)
@@ -20,7 +28,10 @@ function Navbar() {
     const getSuggestions = async()=>{
       if(debouncedSuggestion) {
        const response = await axios.get(`${base_url}/suggestion?query=${debouncedSuggestion}`)
-       setSuggestion(response.data)
+       if (response.data.length >0) {
+        setSuggestion(response.data)
+        setShowSuggestion(true)
+       }
        console.log(response.data);
     }
     }
@@ -38,15 +49,19 @@ function Navbar() {
         <span className='text-lg text-stone-200'>.com</span>
         </div>
         </div>
-        <div className='relative'>
-          <input value={query} onChange={(e)=>handleSearch(e)} placeholder='search...' className='relative border-1 h-10 w-[45vw] md:w-[30vw] bg-white rounded-md outline-0 py-1 px-2 border-red-100'/>
-          <button className='absolute right-0 top-0 rounded-r-lg border-l   p-0.5 bg-stone-300'><img src="/search.png" alt="search-img" /></button>
+        <div ref={wrapperRef} className='relative'>
+          <input value={query} onChange={(e)=>handleSuggestion(e)} placeholder='search...' className='relative border-1 h-10 w-[45vw] md:w-[30vw] bg-white rounded-md outline-0 py-1 px-2 border-red-100'/>
+          <button onClick={handleSearch} className='absolute right-0 top-0 rounded-r-lg border-l   p-0.5 bg-stone-300'><img src="/search.png" alt="search-img" /></button>
           {
-          suggestion.length>0 && query && (
+          showSuggestion && query &&(
 
-                <ul className="absolute bg-gray-200 w-full mt-1 max-h-60 overflow-auto">
+                <ul className="absolute bg-gray-200 w-full mt-1 max-h-60 rounded-b-xl overflow-auto">
           {suggestion.map((item, index) => (
-            <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer">
+            <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer"
+            onClick={() => {
+                dispatch({type:'SET_FILTER', key:'search', value:item.title})
+                setShowSuggestion(false);
+              }}>
               {item.title}
             </li>
           ))}
