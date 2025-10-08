@@ -38,6 +38,19 @@ function Navbar() {
     getSuggestions()
   },[debouncedSuggestion])
 
+  // -----------useEffect listen and handle outside click of suggestion bar ------------
+    useEffect(()=>{
+      const handleOutsideClick = (e)=>{
+    if(wrapperRef.current && !wrapperRef.current.contains(e.target)){
+      setShowSuggestion(false)
+    }
+  }
+    document.addEventListener('mousedown',handleOutsideClick)
+    return ()=>{
+      document.removeEventListener('mousedown',handleOutsideClick)
+    }
+    },[])
+
 
   return (
     <>
