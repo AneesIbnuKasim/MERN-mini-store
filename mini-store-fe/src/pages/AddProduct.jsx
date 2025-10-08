@@ -10,6 +10,7 @@ const addProductSchema = Yup.object(
   {
   title: Yup.string().min(3,'Title must be at least 3 characters ').required('Title required'),
   price: Yup.number('invalid type').required('price required'),
+  rating: Yup.number('invalid type').required('rating required'),
   description: Yup.string().min(10,'Description must be at least 10 characters ').required('Description required'),
   brand: Yup.string().min(3,'Brand name must be at least 3 characters ').required('Brand name required'),
   category: Yup.string().min(3,'category must be at least 3 characters ').required('category required'),
@@ -74,6 +75,7 @@ function AddProduct() {
         brand: '',
         images: null,
         price: null,
+        rating:null
       }}
       validationSchema={addProductSchema}
       onSubmit={(values)=>{
@@ -108,6 +110,11 @@ function AddProduct() {
             <label htmlFor="price">Price</label>
             <Field type='number' name="price" className="border p-2 w-full" />
             <ErrorMessage name="price" component="div" className="text-red-500 text-sm" />
+          </div>
+          <div className='flex flex-col gap-3'>
+            <label htmlFor="rating">Price</label>
+            <Field type='number' name="rating" className="border p-2 w-full" />
+            <ErrorMessage name="rating" component="div" className="text-red-500 text-sm" />
           </div>
           <div className='flex flex-col gap-3'>
             <label htmlFor="description">description</label>

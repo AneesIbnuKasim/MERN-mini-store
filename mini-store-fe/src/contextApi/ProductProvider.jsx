@@ -62,19 +62,17 @@ const addProducts = async(values)=>{
     
 
     try {
-        const response = await axios.post(`${API_BASE_URL}/api/products`,values,
+         await axios.post(`${API_BASE_URL}/api/products`,values,
         {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
     )
-    console.log('response',response)
-        
     } catch (error
     ) {
         console.error(error.message);
         
     }
-    navigate('/products')
+    navigate('/')
     
 }
 
