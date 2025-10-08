@@ -31,7 +31,7 @@ export default function PriceRangeSlider() {
         thumbSize={4}
         onInput={handleChange}
         />
-        <button className= " border-1 border-blue-400 p-1 rounded-2xl" type="button" onClick={handlePriceFilter}>Go</button>
+        <button className= " border-1 border-blue-400 p-1 hover:border-red-500 rounded-2xl" type="button" onClick={handlePriceFilter}>Go</button>
      </div>
       
 

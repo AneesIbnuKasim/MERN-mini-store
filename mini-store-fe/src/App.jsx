@@ -1,7 +1,7 @@
 
 import Navbar from './components/Navbar'
 import Products from './pages/Products'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 import AddProduct from './pages/AddProduct'
 

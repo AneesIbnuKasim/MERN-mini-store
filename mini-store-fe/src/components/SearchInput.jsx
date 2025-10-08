@@ -55,7 +55,7 @@ function SearchInput() {
 
 
 <div ref={wrapperRef} className='relative'>
-          <input value={query} onChange={(e)=>handleSuggestion(e)} placeholder='search...' className='relative border-1 h-10 w-[45vw] md:w-[30vw] bg-white rounded-md outline-0 py-1 px-2 border-red-100'/>
+          <input value={query} name='input' onChange={(e)=>handleSuggestion(e)} placeholder='search...' className='relative border-1 h-10 w-[45vw] md:w-[30vw] bg-white rounded-md outline-0 py-1 px-2 border-red-100'/>
           <button onClick={handleSearch} className='absolute right-0 top-0 rounded-r-lg border-l   p-0.5 bg-stone-300'><img src="/search.png" alt="search-img" /></button>
           {
           showSuggestion && query &&(

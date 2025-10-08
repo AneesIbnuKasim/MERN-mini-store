@@ -47,7 +47,7 @@ const ProductProvider = ({children})=>{
                 setAllCategories(response.data.allCategories)
                
                 //sync search query with url without re-loading
-               if (location.pathname=='/products') {navigate(`?${queryString}`,{replace:false})}
+               if (location.pathname=='/') {navigate(`?${queryString}`,{replace:false})}
                 
             } catch (error) {
                 console.error(error.message)

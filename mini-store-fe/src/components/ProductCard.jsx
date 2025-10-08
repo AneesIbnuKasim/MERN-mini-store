@@ -22,7 +22,7 @@ function getImageUrl(imagePath) {
     <>
         <div className='grid gap-3 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
             { 
-              products.map(product=>(
+              products?.map(product=>(
                 <div key={product._id} className='border-1 border-gray-200 shadow-lg rounded-sm hover:scale-105 transition-all'>
                 <img className='bg-gray-50 h-40 sm:h-45 md-h-50 lg:h-55 w-full' src={getImageUrl(product.images[0])}
  alt="product img" />

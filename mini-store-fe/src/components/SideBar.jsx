@@ -4,7 +4,7 @@ import PriceRangeSlider from './PriceRangeSlider';
 
 function SideBar() {
 
-    const { products, dispatch, category, minPrice, maxPrice, state, allCategories } = useProduct()
+    const { dispatch, allCategories } = useProduct()
     // ---------------------------------Handle all filters--------------------------
     const handleFilter = (e)=>{
         const name = e.target.name
@@ -29,7 +29,7 @@ function SideBar() {
             <h4 className='font-text-lg font-semibold text-gray-800 mb-4'>Category</h4>
             <div className='flex flex-col gap-5'>
                 {
-                allCategories.map((category,index)=>(
+                allCategories?.map((category,index)=>(
                     <label key={index}>
   <input  onClick={(e)=>handleFilter(e)} type="checkbox" name='category' value={category} /> {category}
 </label>
