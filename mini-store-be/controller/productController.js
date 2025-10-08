@@ -31,28 +31,7 @@ const addProducts = async(req, res)=>{
 //function to show all products
 const getAllProducts = async(req, res)=>{
 
-    // --------------------------made to save 20 dummy products to database using fetch--------------
-
-        // const response = await fetch('https://dummyjson.com/products')
-        // const data = await response.json()
-        // const products = data.products
-        // const product = products.slice(0,20)
-        
-        // await Promise.all(
-        //     product.map(async(item)=>{
-        //     const {title,description,category,price,rating,brand, images} = item
-        //     const prod = new Product({
-        //         title,
-        //         description,
-        //         category,
-        //         price,
-        //         rating,
-        //         brand,
-        //         images
-        // })
-        // await prod.save()
-        // })
-        // )
+    
         try {
             // destructure query params from req.query
             const {category, minPrice, maxPrice, rating, search, sort, page, limit} = req.query
@@ -97,10 +76,29 @@ const getAllProducts = async(req, res)=>{
         } catch (error) {
             res.json(error.message)
         }
+
+        
 }
+        //get suggestion for search query
+        const getSuggestion = async(req, res)=>{
+            try {
+            const query = req.query.query
+            const searchQuery = {title:{$regex:query, $options:'i'}}
+            console.log(query);
+            
+            const data = await Product.find(searchQuery,{title:1,_id:0})
+            console.log('data',data);
+            
+            res.json(data)
+            } catch (error) {
+                res.status(400).json(error.message)
+            }
+        }
+
 
 
 export {
     getAllProducts,
-    addProducts
+    addProducts,
+    getSuggestion
 }
