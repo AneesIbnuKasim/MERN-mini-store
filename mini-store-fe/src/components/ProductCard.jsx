@@ -4,6 +4,17 @@ import useProduct from '../hooks/useProduct';
 function ProductCard() {
   const {state} = useProduct()
   const {products} = state
+
+  const API_BASE_URL = import.meta.env.BACKEND_API_BASE_URL || 'http://localhost:3000';
+
+function getImageUrl(imagePath) {
+  //for images url images
+  if (imagePath?.startsWith('http')) {
+    return imagePath;
+  }
+  // local upload folder
+  return `${API_BASE_URL}${imagePath}`;
+}
   
   
   return (
@@ -13,7 +24,8 @@ function ProductCard() {
             { 
               products.map(product=>(
                 <div key={product._id} className='border-1 border-gray-200 shadow-lg rounded-sm hover:scale-103 transition-all'>
-                <img className='bg-gray-50 h-50 sm:h-50 md-h-60 lg:h-70 w-full' src={product.images[0]} alt="product img" />
+                <img className='bg-gray-50 h-50 sm:h-50 md-h-60 lg:h-70 w-full' src={getImageUrl(product.images[0])}
+ alt="product img" />
                 <div className='py-2 px-3 '>
                   <p  className='text-gray-500 text-sm sm:text-md'>{product.brand}</p>
                 <p className='text-md sm:text-lg'>{product.title}</p>

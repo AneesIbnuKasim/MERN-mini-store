@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 // -------------set image upload static path to uploads folder---------------
-app.use("/uploads", express.static(path.resolve("uploads")));
+app.use("/uploads", express.static("uploads"));
 
 app.use('/', userRouter)
 

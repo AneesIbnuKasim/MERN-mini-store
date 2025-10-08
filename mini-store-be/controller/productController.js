@@ -4,7 +4,12 @@ import Product from '../Model/productModel.js'
 
 // add products to mongodb
 const addProducts = async(req, res)=>{
-    const { title,description,category,price,rating,brand} = req.body
+    console.log('first line');
+    
+    const { title,description,category,price,rating,brand, images} = req.body
+    console.log('file:',req.file)
+    console.log(('hit body data',req.body));
+    
    try {
          const product = new Product({
         title,
@@ -13,10 +18,10 @@ const addProducts = async(req, res)=>{
         price,
         rating,
         brand,
-        images: req.file? [`/uploads/products/${req.file.filename}`] : []
+        images: [`/uploads/${req.file.filename}`]
     })
     await product.save()
-    res.json({message:'Product Uploaded Successfully'})
+    res.json({message:'Product Uploaded Successfully'},req.body)
    } catch (error) {
     res.json(error.message);
    }

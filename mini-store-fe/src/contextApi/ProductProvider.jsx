@@ -54,6 +54,43 @@ const ProductProvider = ({children})=>{
         }
         fetchProducts()
     },[category, minPrice, maxPrice, search, page, limit, sort])
+
+// -----------------------add new products to db -----------------------------
+
+const addProducts = async(values)=>{
+
+    //  const formData = new FormData()
+    // formData.append('images', values.images)
+    // formData.append('title',values.title)
+    // formData.append('brand', values.brand)
+    // formData.append('price', values.price)
+    // formData.append('description', values.description)
+    // formData.append('category', values.category)
+    // formData.get('title')
+
+    // console.log('titlt',values.title);
+    
+    // console.log('form data',formData);
+    
+
+    console.log('vals',values)
+    try {
+        const response = await axios.post('http://localhost:3000/products',values,
+        {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+    )
+    console.log('response',response)
+        
+    } catch (error
+    ) {
+        console.error(error.message);
+        
+    }
+    // navigate('/products')
+    
+}
+
     useEffect(()=>{
         console.log('state:',state);
     },[state])
@@ -61,7 +98,7 @@ const ProductProvider = ({children})=>{
 
     return(
     <ProductContext.Provider value={{state, dispatch,
-        category, minPrice, maxPrice, search, page, limit, products, loading, totalCount, allCategories
+        category, minPrice, maxPrice, search, page, limit, products, loading, totalCount, allCategories, addProducts
     }}>
         {children}
     </ProductContext.Provider>)

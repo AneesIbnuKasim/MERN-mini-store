@@ -16,15 +16,18 @@ const storage = multer.diskStorage({
         cb(null, uploadDir)
     },
     filename:(req, file, cb)=>{
-        const filename = Date.now()+'-'+Math.round(Math.random)
+        const filename = Date.now()+'-'+Math.round(Math.random())
         cb(null, filename+path.extname(file.originalname))
     }
 })
 
 // ---------------------filter to only allow images-----------------------
 const fileFilter = (req, file, cb)=>{
+    console.log('hit multer');
+    
     const allowed = /jpeg|jpg|png|webp/
     const ext = path.extname(file.originalname).toLowerCase()
+    console.log('ext',ext)
     allowed.test(ext) ? cb(null,true) : cb(new Error('Only images are allowed'))
 }
 
