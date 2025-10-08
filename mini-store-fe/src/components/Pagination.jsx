@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import useProduct from '../hooks/useProduct'
 import { FcPrevious } from "react-icons/fc"
 import { FcNext } from "react-icons/fc"
 
 function Pagination() {
-        const {state, dispatch, products, totalCount, page, limit} = useProduct()
+        const {state, dispatch, totalCount, page, limit} = useProduct()
         
         const totalPages = Math.ceil(totalCount/limit)
         

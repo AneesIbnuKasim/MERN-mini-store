@@ -1,4 +1,3 @@
-import React, { useEffect, useMemo } from 'react'
 import useProduct from '../hooks/useProduct'
 import 'react-range-slider-input/dist/style.css';
 import PriceRangeSlider from './PriceRangeSlider';

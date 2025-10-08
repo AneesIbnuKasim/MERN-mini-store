@@ -23,6 +23,7 @@ const addProductSchema = Yup.object(
 }
 )
 
+//custom component for file input 
 const FileInput = ({label, ...props})=>{
   const [field, meta, helpers] = useField(props);
   const [preview, setPreview] = useState(null);

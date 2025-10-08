@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import useProduct from '../hooks/useProduct'
 import useDebounce from '../hooks/useDebounce'
 import axios from 'axios'
-import Search from './SearchInput'
 
 function SearchInput() {
 
@@ -10,7 +9,7 @@ function SearchInput() {
   const [suggestion, setSuggestion] = useState([])
   const [showSuggestion, setShowSuggestion ] = useState(false)
   const [query, setQuery] = useState('')
-  const base_url = import.meta.env.BACKEND_BASE_URL || 'http://localhost:3000'
+  const API_BASE_URL = import.meta.env.VITE_API_URL
   const wrapperRef = useRef()
 
   const handleSuggestion = (e)=>{
@@ -28,7 +27,7 @@ function SearchInput() {
   useEffect(()=>{
     const getSuggestions = async()=>{
       if(debouncedSuggestion) {
-       const response = await axios.get(`${base_url}/suggestion?query=${debouncedSuggestion}`)
+       const response = await axios.get(`${API_BASE_URL}/suggestion?query=${debouncedSuggestion}`)
        if (response.data.length >0) {
         setSuggestion(response.data)
         setShowSuggestion(true)

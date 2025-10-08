@@ -24,6 +24,7 @@ const ProductProvider = ({children})=>{
     const [ allCategories, setAllCategories] = useState([])
     const navigate = useNavigate()
     const location = useLocation()
+    const API_BASE_URL = import.meta.env.VITE_API_URL
 
     //Destructure state object to pass on provider value
      const   { category, minPrice, maxPrice, search, page, limit, products, sort, loading, totalCount } = state
@@ -38,13 +39,14 @@ const ProductProvider = ({children})=>{
 
         const fetchProducts = async()=>{
             try {
-                const response = await axios.get(`http://localhost:3000/products?${queryString}`)
+                const response = await axios.get(`${API_BASE_URL}/products?${queryString}`)
                 dispatch({type:'SET_PRODUCTS',payload:response.data.products})
                 dispatch({type:'SET_TOTAL_COUNT',payload:response.data.totalCount})
                 
                 //set all categories to dynamically show category filter options
                 setAllCategories(response.data.allCategories)
                
+                //sync search query with url without re-loading
                if (location.pathname=='/products') {navigate(`?${queryString}`,{replace:false})}
                 
             } catch (error) {
@@ -57,24 +59,10 @@ const ProductProvider = ({children})=>{
 // -----------------------add new products to db -----------------------------
 
 const addProducts = async(values)=>{
-
-    //  const formData = new FormData()
-    // formData.append('images', values.images)
-    // formData.append('title',values.title)
-    // formData.append('brand', values.brand)
-    // formData.append('price', values.price)
-    // formData.append('description', values.description)
-    // formData.append('category', values.category)
-    // formData.get('title')
-
-    // console.log('titlt',values.title);
-    
-    // console.log('form data',formData);
     
 
-    console.log('vals',values)
     try {
-        const response = await axios.post('http://localhost:3000/products',values,
+        const response = await axios.post('/products',values,
         {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
@@ -86,14 +74,9 @@ const addProducts = async(values)=>{
         console.error(error.message);
         
     }
-    // navigate('/products')
+    navigate('/products')
     
 }
-
-    useEffect(()=>{
-        console.log('state:',state);
-    },[state])
-
 
     return(
     <ProductContext.Provider value={{state, dispatch,

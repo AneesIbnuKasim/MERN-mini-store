@@ -6,7 +6,7 @@ function ProductCard() {
   const {state} = useProduct()
   const {products} = state
 
-  const API_BASE_URL = import.meta.env.BACKEND_BASE_URL || 'http://localhost:3000';
+  const API_BASE_URL = import.meta.env.VITE_API_URL
 
 function getImageUrl(imagePath) {
   //for images url images
