@@ -62,7 +62,7 @@ const addProducts = async(values)=>{
     
 
     try {
-        const response = await axios.post(`/${API_BASE_URL}/api/products`,values,
+        const response = await axios.post(`${API_BASE_URL}/api/products`,values,
         {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
