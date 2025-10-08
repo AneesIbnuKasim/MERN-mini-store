@@ -10,13 +10,11 @@ dotenv.config();
 const app = express()
 
 const PORT = process.env.PORT || 3001
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173"
 
 //cors for cross platform connection
 app.use(cors({
-  origin: ["https://suqq.netlify.app",
-    "http://localhost:5173"
-  ], 
-  
+  origin: [FRONTEND_URL], 
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
