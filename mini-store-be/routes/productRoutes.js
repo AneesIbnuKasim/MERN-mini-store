@@ -2,10 +2,10 @@ import express from 'express'
 import {getAllProducts, addProducts, getSuggestion} from '../controller/productController.js'
 import upload from '../config/multer.js'
 
-const userRouter = express()
+const productRouter = express()
 
-userRouter.get('/products',getAllProducts)
-userRouter.post('/products',upload.single('images'),addProducts)
-userRouter.get('/suggestion', getSuggestion)
+productRouter.get('/',getAllProducts)
+productRouter.post('/',upload.single('images'),addProducts)
+productRouter.get('/suggestion', getSuggestion)
 
-export default userRouter
+export default productRouter

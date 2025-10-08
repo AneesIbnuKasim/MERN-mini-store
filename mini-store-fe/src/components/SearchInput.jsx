@@ -27,7 +27,7 @@ function SearchInput() {
   useEffect(()=>{
     const getSuggestions = async()=>{
       if(debouncedSuggestion) {
-       const response = await axios.get(`${API_BASE_URL}/suggestion?query=${debouncedSuggestion}`)
+       const response = await axios.get(`${API_BASE_URL}/api/products/suggestion?query=${debouncedSuggestion}`)
        if (response.data.length >0) {
         setSuggestion(response.data)
         setShowSuggestion(true)

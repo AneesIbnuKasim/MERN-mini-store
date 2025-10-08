@@ -1,8 +1,7 @@
 import express from 'express'
 import dotenv from "dotenv";
-import userRouter from './routes/productRoutes.js';
+import productRouter from './routes/productRoutes.js';
 import connectDB from './config/dbConfig.js';
-import path from 'path';
 import cors from 'cors';
 
 //env config to import sensitive keys
@@ -27,7 +26,7 @@ app.use(express.json());
 // -------------set image upload static path to uploads folder---------------
 app.use("/uploads", express.static("uploads"));
 
-app.use('/', userRouter)
+app.use('/api/products', productRouter)
 
 connectDB()
 

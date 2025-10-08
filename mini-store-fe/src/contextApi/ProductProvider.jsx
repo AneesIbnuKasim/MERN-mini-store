@@ -39,7 +39,7 @@ const ProductProvider = ({children})=>{
 
         const fetchProducts = async()=>{
             try {
-                const response = await axios.get(`${API_BASE_URL}/products?${queryString}`)
+                const response = await axios.get(`${API_BASE_URL}/api/products?${queryString}`)
                 dispatch({type:'SET_PRODUCTS',payload:response.data.products})
                 dispatch({type:'SET_TOTAL_COUNT',payload:response.data.totalCount})
                 
@@ -62,7 +62,7 @@ const addProducts = async(values)=>{
     
 
     try {
-        const response = await axios.post('/products',values,
+        const response = await axios.post(`/${API_BASE_URL}/api/products`,values,
         {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
