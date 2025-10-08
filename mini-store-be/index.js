@@ -14,7 +14,10 @@ const PORT = process.env.PORT || 3001
 
 //cors for cross platform connection
 app.use(cors({
-  origin: ["https://frontend-url"], // Netlify URL
+  origin: ["https://suqq.netlify.app",
+    "http://localhost:5173"
+  ], 
+  
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
