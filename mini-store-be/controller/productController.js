@@ -4,11 +4,7 @@ import Product from '../Model/productModel.js'
 
 // add products to mongodb
 const addProducts = async(req, res)=>{
-    console.log('first line');
-    
     const { title,description,category,price,rating,brand, images} = req.body
-    console.log('file:',req.file)
-    console.log(('hit body data',req.body));
     
    try {
          const product = new Product({
@@ -84,10 +80,8 @@ const getAllProducts = async(req, res)=>{
             try {
             const query = req.query.query
             const searchQuery = {title:{$regex:query, $options:'i'}}
-            console.log(query);
             
             const data = await Product.find(searchQuery,{title:1,_id:0})
-            console.log('data',data);
             
             res.json(data)
             } catch (error) {
