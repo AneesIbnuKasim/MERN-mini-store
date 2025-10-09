@@ -20,6 +20,7 @@ function SearchInput() {
       dispatch({type:'SET_FILTER', key:'search', value:query})
       dispatch({type:'SET_PAGE', payload:1})
       setShowSuggestion(false)
+      setQuery('')
   }
   
   const debouncedSuggestion  = useDebounce(query,500)
@@ -51,21 +52,20 @@ function SearchInput() {
     },[])
 
   return (
-    
-
 
 <div ref={wrapperRef} className='relative'>
           <input value={query} name='input' onChange={(e)=>handleSuggestion(e)} placeholder='search...' className='relative border-1 h-10 w-[45vw] md:w-[30vw] bg-white rounded-md outline-0 py-1 px-2 border-red-100'/>
-          <button onClick={handleSearch} className='absolute right-0 top-0 rounded-r-lg border-l   p-0.5 bg-stone-300'><img src="/search.png" alt="search-img" /></button>
+          <button onKeyDown={handleSearch} onClick={handleSearch} className='absolute right-0 top-0 rounded-r-lg border-l   p-0.5 bg-stone-300'><img src="/search.png" alt="search-img" /></button>
           {
           showSuggestion && query &&(
 
                 <ul className="absolute bg-gray-200 w-full mt-1 max-h-60 rounded-b-xl overflow-auto">
-          {suggestion.map((item, index) => (
+          {suggestion?.map((item, index) => (
             <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer"
             onClick={() => {
                 dispatch({type:'SET_FILTER', key:'search', value:item.title})
-                setShowSuggestion(false);
+                setShowSuggestion(false)
+                setQuery('')
               }}>
               {item.title}
             </li>

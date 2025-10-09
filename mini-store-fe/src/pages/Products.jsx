@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import ProductCard from '../components/ProductCard'
 import SideBar from '../components/SideBar'
 import Pagination from '../components/Pagination'
+import useProduct from '../hooks/useProduct'
 
 function Products() {
+
+    const { adminLayout, setAdminLayout, loading } = useProduct()
+    
+  useLayoutEffect(()=>{
+      setAdminLayout(false)
+    },[adminLayout])
 
   
   return (
@@ -14,7 +21,7 @@ function Products() {
          < SideBar />
         </div>
         <div className='sm:flex-1'>
-          <ProductCard/>
+         <ProductCard/>
         </div>
       </div>
       <Pagination/>

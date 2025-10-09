@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import {Form, Formik, Field, ErrorMessage, useField} from 'formik'
 import * as Yup from 'yup'
 import useProduct from '../hooks/useProduct'
+
 
 const FILE_SIZE = 2*1024*1024
 const FILE_FORMAT = ['image/jpeg','image/jpg','image/png','image/webp']
@@ -62,7 +63,10 @@ const FileInput = ({label, ...props})=>{
 
 function AddProduct() {
   
-  const {addProducts} = useProduct()
+  const {addProducts, adminLayout, setAdminLayout } = useProduct()
+  useLayoutEffect(()=>{
+    setAdminLayout(true)
+  },[adminLayout])
 
   return (
     <>
@@ -85,7 +89,7 @@ function AddProduct() {
         <Form >
           <div className='flex flex-col w-[40%] m-auto mt-5 mb-5 border p-5 rounded-xl gap-5'>
               <div className='flex flex-col gap-3'>
-            <label htmlFor="title">title</label>
+            <label htmlFor="title">Title</label>
             <Field type='text' name="title" className="border p-2 w-full" />
             <ErrorMessage name="title" component="div" className="text-red-500 text-sm" />
           </div>
@@ -112,12 +116,12 @@ function AddProduct() {
             <ErrorMessage name="price" component="div" className="text-red-500 text-sm" />
           </div>
           <div className='flex flex-col gap-3'>
-            <label htmlFor="rating">Price</label>
+            <label htmlFor="rating">Rating</label>
             <Field type='number' name="rating" className="border p-2 w-full" />
             <ErrorMessage name="rating" component="div" className="text-red-500 text-sm" />
           </div>
           <div className='flex flex-col gap-3'>
-            <label htmlFor="description">description</label>
+            <label htmlFor="description">Description</label>
             <Field as='textarea' name="description" className="border p-2 w-full" />
             <ErrorMessage name="description" component="div" className="text-red-500 text-sm" />
           </div>

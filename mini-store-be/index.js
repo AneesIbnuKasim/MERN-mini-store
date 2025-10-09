@@ -9,9 +9,14 @@ dotenv.config();
 
 const app = express()
 
-const PORT = process.env.PORT || 3001
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173"
 
+
+
+//change environment on env file to switch between prod or dev
+const FRONTEND_URL = process.env.NODE_ENV == 'production' ? process.env.FRONTEND_URL_PROD : process.env.FRONTEND_URL_DEV
+
+const PORT = process.env.PORT || 3001
+console.log('frnt',FRONTEND_URL)
 //cors for cross platform connection
 app.use(cors({
   origin: [FRONTEND_URL], 
