@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import SearchInput from "./SearchInput"
 import { useEffect, useState } from "react"
 import useProduct from "../hooks/useProduct"
@@ -7,10 +7,12 @@ import useProduct from "../hooks/useProduct"
 function Navbar() {
     const [showSearch, setShowSearch] = useState(true)
     const { adminLayout, setAdminLayout } = useProduct()
+    const location = useLocation() 
 
+    //to switch the navbar layout depending on pathname
     useEffect(()=>{
       location.pathname.includes('add-product') ? setShowSearch(false) : setShowSearch(true)
-    },[showSearch])
+    },[location.pathname])
 
   return (
     <>

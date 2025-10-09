@@ -34,7 +34,7 @@ function getImageUrl(imagePath) {
             { 
               products?.map(product=>(
                 <div key={product._id} className='border-1 border-gray-200 shadow-lg rounded-sm hover:scale-105 transition-all'>
-                <img className='bg-gray-50 h-40 sm:h-45 md-h-50 lg:h-55 w-full' src={getImageUrl(product.images[0])}
+                <img loading='lazy' className='bg-gray-50 h-40 sm:h-45 md-h-50 lg:h-55 w-full' src={getImageUrl(product.images[0])}
  alt="product img" />
                 <div className='py-2 px-3 '>
                   <p  className='text-gray-500 text-sm sm:text-md'>{product.brand}</p>
