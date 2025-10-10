@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import SearchInput from "./SearchInput"
 import { useEffect, useState } from "react"
 import useProduct from "../hooks/useProduct"
@@ -6,13 +6,20 @@ import useProduct from "../hooks/useProduct"
 
 function Navbar() {
     const [showSearch, setShowSearch] = useState(true)
-    const { adminLayout, setAdminLayout } = useProduct()
+    const { adminLayout, setAdminLayout, dispatch } = useProduct()
     const location = useLocation() 
+    const navigate = useNavigate()
 
     //to switch the navbar layout depending on pathname
     useEffect(()=>{
       location.pathname.includes('add-product') ? setShowSearch(false) : setShowSearch(true)
     },[location.pathname])
+
+    //functn for back to home button
+const handleBackHome = ()=>{
+  dispatch({type:'RESET_FILTER'})
+  navigate('/')
+}
 
   return (
     <>
@@ -27,7 +34,7 @@ function Navbar() {
         </div>
        {!adminLayout &&  <SearchInput /> }
        {adminLayout && (
-        <Link to={'/'} onClick={()=>setAdminLayout(false)} className="text-white">Back To Products</Link>
+        <button onClick={handleBackHome} className='bg-gray-700 shadow-amber-50 shadow-sm w-30 px-2 py-3 rounded-xl text-white text-center hover:bg-gray-400 hover:text-black cursor-pointer'>Back to Home</button>
        )}
     </div>
     </div>

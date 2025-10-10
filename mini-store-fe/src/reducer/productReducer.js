@@ -9,6 +9,7 @@ const productReducer = (state, action)=>{
             case 'SET_TOTAL_COUNT'    : return {...state,totalCount:action.payload}
             case 'SET_PAGE' : return {...state, page:action.payload}
             case 'SET_SORT' : return {...state, sort:action.payload}
+            case 'RESET_FILTER' : return {...state, category: [],minPrice: '',maxPrice: '',sort:'',search: '',page: 1,}
             default : return state
         }
     }

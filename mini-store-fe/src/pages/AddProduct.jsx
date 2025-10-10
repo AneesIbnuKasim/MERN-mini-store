@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import {Form, Formik, Field, ErrorMessage, useField} from 'formik'
 import * as Yup from 'yup'
 import useProduct from '../hooks/useProduct'
@@ -11,7 +11,7 @@ const addProductSchema = Yup.object(
   {
   title: Yup.string().min(3,'Title must be at least 3 characters ').required('Title required'),
   price: Yup.number('invalid type').required('price required'),
-  rating: Yup.number('invalid type').required('rating required'),
+  rating: Yup.number('invalid type').required('rating required').max(5).min(0),
   description: Yup.string().min(10,'Description must be at least 10 characters ').required('Description required'),
   brand: Yup.string().min(3,'Brand name must be at least 3 characters ').required('Brand name required'),
   category: Yup.string().min(3,'category must be at least 3 characters ').required('category required'),
@@ -54,7 +54,6 @@ const FileInput = ({label, ...props})=>{
           className="mt-2 h-32 w-32 object-cover border rounded"
         />
       )}
-
     </>
   )
 }
@@ -64,6 +63,8 @@ const FileInput = ({label, ...props})=>{
 function AddProduct() {
   
   const {addProducts, adminLayout, setAdminLayout } = useProduct()
+
+  //setting admin layout true before the ui paint
   useLayoutEffect(()=>{
     setAdminLayout(true)
   },[adminLayout])

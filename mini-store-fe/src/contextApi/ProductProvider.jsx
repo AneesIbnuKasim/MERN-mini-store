@@ -2,8 +2,7 @@ import { createContext, useContext, useEffect, useReducer, useRef, useState } fr
 import productReducer from "../reducer/productReducer";
 import axios from 'axios'
 import { useLocation, useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2'
-
+import toast from 'react-hot-toast'
 
 const initialState = {
         category : [],
@@ -80,20 +79,9 @@ const ProductProvider = ({children})=>{
 
 }, [location.search])
 
-useEffect(()=>{
-    console.log('prod',loading);
-},[loading])
-
 // -----------------------add new products to db -----------------------------
 
 const addProducts = async(values)=>{
-
-    Swal.fire({
-  title: 'Success!',
-  text: 'Your product has been added successfully.',
-  icon: 'success',
-  confirmButtonText: 'OK'
-})
     try {
          await axios.post(`${API_BASE_URL}/api/products`,values,
         {
@@ -101,17 +89,19 @@ const addProducts = async(values)=>{
       }
     )
     setAdminLayout(false)
-    navigate('/')
+    setTimeout(()=>{
+        navigate('/')
+    },1500)
     } catch (error
     ) {
         console.error(error.message);
-        
     }
+    finally{toast.success('Product added successfully')}
 }
 
     return(
     <ProductContext.Provider value={{state, dispatch,
-        category, minPrice, maxPrice, search, page, limit, products, loading, totalCount, allCategories, addProducts, adminLayout, setAdminLayout
+        category, minPrice, maxPrice, search, page, sort, limit, products, loading, totalCount, allCategories, addProducts, adminLayout, setAdminLayout
     }}>
         {children}
     </ProductContext.Provider>)

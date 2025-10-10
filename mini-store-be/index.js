@@ -13,14 +13,12 @@ const app = express()
 
 
 //change environment on env file to switch between prod or dev
-// const FRONTEND_URL = process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL_PROD : process.env.FRONTEND_URL_DEV
-
-FRONTEND_URL = process.env.FRONTEND_URL_PROD
+const FRONTEND_URL = process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL_PROD : process.env.FRONTEND_URL_DEV
 
 const PORT = process.env.PORT || 3001
 //cors for cross platform connection
 app.use(cors({
-  origin: [FRONTEND_URL], 
+  origin: FRONTEND_URL, 
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));

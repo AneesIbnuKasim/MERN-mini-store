@@ -4,7 +4,7 @@ import PriceRangeSlider from './PriceRangeSlider';
 
 function SideBar() {
 
-    const { dispatch, allCategories } = useProduct()
+    const { dispatch, allCategories, category, sort, } = useProduct()
     // ---------------------------------Handle all filters--------------------------
     const handleFilter = (e)=>{
         const name = e.target.name
@@ -15,6 +15,10 @@ function SideBar() {
     const handleSort = (e)=>{
         dispatch({type:'SET_SORT',payload:e.target.value})
         dispatch({type:'SET_PAGE',payload:1})
+    }
+    // ---------------- Handle reset filter & sort ----------------------
+    const handleReset = ()=>{
+        dispatch({type:'RESET_FILTER'})
     }
 
   return (
@@ -29,9 +33,9 @@ function SideBar() {
             <h4 className='font-text-lg font-semibold text-gray-800 mb-4'>Category</h4>
             <div className='flex flex-col gap-5'>
                 {
-                allCategories?.map((category,index)=>(
+                allCategories?.map((cat,index)=>(
                     <label key={index}>
-  <input  onClick={(e)=>handleFilter(e)} type="checkbox" name='category' value={category} /> {category}
+  <input value={cat} checked={category.includes(cat)}  onChange={(e)=>handleFilter(e)} type="checkbox" name='category' /> {cat}
 </label>
                 ))
             }
@@ -40,7 +44,7 @@ function SideBar() {
         {/* ---------------------------------Sort------------------------------ */}
         <div>
             <h4 className='font-text-lg font-semibold text-gray-800 mb-4'>Sort</h4>
-            <select onChange={(e)=>handleSort(e)} name="sort" id="sort">
+            <select value={sort} onChange={(e)=>handleSort(e)} name="sort" >
                 <option value="">Relevant</option>
                 <option value="price">Price: Low-High</option>
                 <option value="-price">Price: High-Low</option>
@@ -48,7 +52,9 @@ function SideBar() {
             </select>
 
         </div>
+        <button type='button' onClick={handleReset} className='bg-yellow-400 mt-3 p-3 rounded-2xl'>Reset</button>
         </form>
+        
     </div>
   )
 }

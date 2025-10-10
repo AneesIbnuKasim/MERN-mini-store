@@ -25,9 +25,12 @@ function Pagination() {
         
         
   return (
-    <div className='mb-5 flex ' >
-      <div className='h-15 flex bg-gray-100 w-auto m-auto rounded-md'>
-            <button disabled={page===1}  className='w-15 sm:w-25 border-r bg-amber-100 border-gray-300 px-0.5 sm:px-1' onClick={()=>handleButton(page-1)
+    <>
+
+   {totalPages ? (
+        <div className='mb-5 flex ' >
+      <div className='h-15 flex bg-gray-100 w-auto m-auto rounded-xl'>
+            <button disabled={page===1}  className='w-15 sm:w-25 border-r bg-blue-200 border-gray-300 px-0.5 sm:px-1 disabled:bg-gray-400 disabled:text-gray-200' onClick={()=>handleButton(page-1)
             }>
                      <div className='flex gap-0.5 justify-center items-center'>
                         <FcPrevious />
@@ -42,7 +45,7 @@ function Pagination() {
                 
             ))}
             
-            <button disabled={page===totalPages}  className='w-15 sm:w-25 border-r bg-amber-100 border-gray-300 px-0.5 sm:px-1' onClick={()=>handleButton(page+1)
+            <button disabled={page===totalPages}  className='w-15 sm:w-25 border-r bg-blue-200 border-gray-300 px-0.5 sm:px-1 disabled:bg-gray-400 disabled:text-gray-200' onClick={()=>handleButton(page+1)
             }>
                 <div className='flex gap-0.5 justify-center items-center'>
                         <span className=' hidden sm:block'>Next</span>
@@ -51,6 +54,9 @@ function Pagination() {
             </button>
       </div>
     </div>
+   ):
+   ''} 
+  </>
   )
 }
 
