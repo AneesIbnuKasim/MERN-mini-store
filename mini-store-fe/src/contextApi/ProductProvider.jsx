@@ -66,15 +66,10 @@ const ProductProvider = ({children})=>{
     },[category, minPrice, maxPrice, search, page, limit, sort])
 
         useEffect(() => {
-            //checking if its our request and return if true
-            if(navigationRef.current) {
-                navigationRef.current = false
-                return
-            }
-  
     const params = new URLSearchParams(location.search);
   const page = parseInt(params.get('page')) || 1
-
+  console.log('page',page);
+  
       dispatch({type: 'SET_PAGE',payload: page})
 
 }, [location.search])

@@ -19,7 +19,6 @@ const PORT = process.env.PORT || 3001
 //cors for cross platform connection
 app.use(cors({
   origin: FRONTEND_URL, 
-  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
 

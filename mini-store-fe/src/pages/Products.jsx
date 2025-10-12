@@ -6,7 +6,7 @@ import useProduct from '../hooks/useProduct'
 
 function Products() {
 
-    const { adminLayout, setAdminLayout, products } = useProduct()
+    const { adminLayout, setAdminLayout } = useProduct()
     
   useLayoutEffect(()=>{
       setAdminLayout(false)

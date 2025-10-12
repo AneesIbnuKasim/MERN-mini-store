@@ -19,7 +19,7 @@ const addProducts = async(req, res)=>{
     await product.save()
     res.json({message:'Product Uploaded Successfully'},req.body)
    } catch (error) {
-    res.json(error.message);
+    res.json(error.message)
    }
 
 }
